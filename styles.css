@@ -321,6 +321,15 @@ h3 {
 
 .mission-header {
   width: min(900px, 100%);
+  margin-bottom: 50px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  
 }
 
 .mission-logo {
