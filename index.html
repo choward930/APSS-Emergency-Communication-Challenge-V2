@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+  <meta name="theme-color" content="#07131d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="First Responders">
+  <title>Can You Reach First Responders Inside Your Building?</title>
+
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <main id="app" class="app-shell">
+
+    <!-- START / REGISTRATION -->
+    <section id="registrationScreen" class="screen active">
+      <div class="experience-shell">
+        <header class="hero-header">
+          <img
+            src="icons/icon-192.png"
+            class="brand-logo"
+            alt="APSS logo"
+          >
+          <div>
+            <p class="kicker">Emergency Communications Challenge</p>
+            <h1>Can You Reach First Responders Inside Your Building?</h1>
+          </div>
+        </header>
+
+        <div class="entry-banner">
+          <span class="banner-icon" aria-hidden="true">🎁</span>
+          <p>
+            Every participant receives one drawing entry. If your emergency
+            communication reaches local first responders, you'll earn a bonus
+            drawing entry.
+          </p>
+        </div>
+
+        <div class="scenario-panel">
+          <div class="scenario-label">
+            <span aria-hidden="true">🚨</span>
+            <span>Emergency Scenario</span>
+          </div>
+
+          <h2>A school administrator has declared a lockdown.</h2>
+          <p>You need to notify responding police officers.</p>
+          <p class="scenario-action">
+            Press and hold the emergency button to transmit your emergency message.
+          </p>
+        </div>
+
+        <div class="registration-layout">
+          <div class="registration-copy">
+            <p class="section-label">Your Information</p>
+            <h2>Enter the drawing and begin the challenge.</h2>
+            <p>
+              Your information stays on this computer until staff export the
+              event spreadsheet.
+            </p>
+          </div>
+
+          <form id="registrationForm" class="registration-form">
+            <div class="field-grid">
+              <div class="field">
+                <label for="name">Name <span>*</span></label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  autocomplete="name"
+                  required
+                >
+              </div>
+
+              <div class="field">
+                <label for="organization">School district or organization</label>
+                <input
+                  id="organization"
+                  name="organization"
+                  type="text"
+                  autocomplete="organization"
+                >
+              </div>
+
+              <div class="field">
+                <label for="email">Email <span>*</span></label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  inputmode="email"
+                  autocomplete="email"
+                  required
+                >
+              </div>
+
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  inputmode="tel"
+                  autocomplete="tel"
+                >
+              </div>
+            </div>
+
+            <label class="check-row">
+              <input id="contactConsent" name="contactConsent" type="checkbox">
+              <span>
+                I agree that APSS may contact me regarding emergency
+                communications and public-safety radio coverage.
+              </span>
+            </label>
+
+            <button class="challenge-button" type="submit">
+              <span aria-hidden="true">🚨</span>
+              Start the Emergency Challenge
+            </button>
+          </form>
+        </div>
+
+        <button
+          id="openAdminButton"
+          type="button"
+          class="staff-link"
+        >
+          Staff Administration
+        </button>
+      </div>
+    </section>
+
+
+    <!-- RADIO -->
+    <section id="radioScreen" class="screen radio-stage">
+      <div class="mission-header">
+        <img src="icons/icon-180.png" class="mission-logo" alt="">
+        <div>
+          <p class="kicker">Emergency Scenario Active</p>
+          <h2>Notify responding police officers.</h2>
+        </div>
+      </div>
+
+      <div class="radio-wrap">
+        <div class="radio-shadow"></div>
+
+        <article class="portable-radio" aria-label="Simulated public safety radio">
+          <div class="radio-crown" aria-hidden="true">
+            <div class="antenna"></div>
+            <div class="knob knob-left"></div>
+            <div class="knob knob-right"></div>
+          </div>
+
+          <div class="radio-brand-line">
+            <span>APSS</span>
+            <span>PUBLIC SAFETY</span>
+          </div>
+
+          <div class="speaker-area" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </div>
+
+          <div class="radio-screen">
+            <div class="radio-status-row">
+              <span>EMERGENCY TG</span>
+              <span class="battery-icon" aria-label="Battery full">
+                <i></i>
+              </span>
+            </div>
+
+            <div class="signal-row">
+              <span>SIGNAL</span>
+              <div id="signalBars" class="signal-bars" aria-hidden="true">
+                <i></i><i></i><i></i><i></i><i></i>
+              </div>
+            </div>
+
+            <div id="radioState" class="radio-state">READY</div>
+            <div id="radioSubstate" class="radio-substate">
+              PRESS AND HOLD TO TRANSMIT
+            </div>
+
+            <div id="waveform" class="waveform" aria-hidden="true">
+              <span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+
+          <p class="hold-instruction">
+            Press and hold for 1.2 seconds.
+          </p>
+
+          <button
+            id="pttButton"
+            class="ptt-button"
+            type="button"
+          >
+            <span class="ptt-top">COMMUNICATE</span>
+            <strong>EMERGENCY</strong>
+            <span class="ptt-bottom">PRESS AND HOLD</span>
+          </button>
+
+          <div class="radio-foot">
+            <span>MISSION CRITICAL COMMUNICATIONS</span>
+            <span>PTT</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+
+    <!-- PROCESSING -->
+    <section id="processingScreen" class="screen">
+      <div class="processing-card">
+        <img src="icons/icon-192.png" class="processing-logo" alt="">
+        <p class="kicker">Emergency Transmission Initiated</p>
+        <h2 id="processingHeadline">Searching for in-building coverage…</h2>
+
+        <div class="coverage-visual" aria-hidden="true">
+          <div class="building-outline">
+            <div class="floor"></div>
+            <div class="floor"></div>
+            <div class="floor"></div>
+            <div class="floor"></div>
+            <div id="scanPulse" class="scan-pulse"></div>
+          </div>
+
+          <div id="processingSignal" class="processing-signal">
+            <i></i><i></i><i></i><i></i><i></i>
+          </div>
+        </div>
+
+        <div class="status-timeline">
+          <div class="status-step active">
+            <span></span>
+            <p>Transmission sent</p>
+          </div>
+          <div id="stepCoverage" class="status-step">
+            <span></span>
+            <p>Checking coverage</p>
+          </div>
+          <div id="stepNetwork" class="status-step">
+            <span></span>
+            <p>Locating public-safety network</p>
+          </div>
+          <div id="stepConnection" class="status-step">
+            <span></span>
+            <p>Attempting connection</p>
+          </div>
+        </div>
+
+        <div class="progress-track">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- RESULT -->
+    <section id="resultScreen" class="screen">
+      <div id="resultPanel" class="result-panel">
+        <div id="resultMark" class="result-mark">✓</div>
+        <p class="kicker">Transmission Result</p>
+        <h2 id="resultTitle">Connected with First Responders</h2>
+        <p id="resultText" class="result-text"></p>
+        <div id="entryAward" class="entry-award"></div>
+
+        <button id="continueButton" class="primary-action" type="button">
+          Continue
+        </button>
+      </div>
+    </section>
+
+
+    <!-- EDUCATION / INTEREST -->
+    <section id="educationScreen" class="screen">
+      <div class="education-shell">
+        <header class="education-header">
+          <img src="icons/icon-192.png" class="education-logo" alt="">
+          <div>
+            <p class="kicker">Why This Matters</p>
+            <h2>Reliable in-building communication cannot be assumed.</h2>
+          </div>
+        </header>
+
+        <div class="stat-callout">
+          <strong>30%</strong>
+          <p>
+            Based on hundreds of buildings tested by APSS, roughly only 30%
+            had adequate in-building public-safety radio coverage and were
+            IFC Section 510 compliant.
+          </p>
+        </div>
+
+        <div class="education-grid">
+          <div class="signal-obstacles">
+            <p class="section-label">Why coverage can fail</p>
+            <h3>Modern buildings can weaken public-safety radio signals.</h3>
+
+            <div class="obstacle-tags">
+              <span>Concrete</span>
+              <span>Steel</span>
+              <span>Low-E glass</span>
+              <span>Basements</span>
+              <span>Mechanical rooms</span>
+              <span>Building additions</span>
+            </div>
+          </div>
+
+          <div class="services-panel">
+            <p class="section-label">APSS helps organizations:</p>
+            <ul class="services-list">
+              <li>Test in-building radio coverage</li>
+              <li>Identify deficiencies</li>
+              <li>Design compliant ERCES/DAS systems</li>
+              <li>Verify reliable responder communications</li>
+            </ul>
+
+            <p class="no-cost-message">
+              Ask APSS about testing your district buildings at no cost.
+            </p>
+          </div>
+        </div>
+
+        <div class="interest-panel">
+          <label class="interest-check">
+            <input id="coverageInterest" type="checkbox">
+            <span>
+              I would like to know more about in-building first responder
+              coverage testing.
+            </span>
+          </label>
+
+          <button id="completeButton" class="primary-action" type="button">
+            Complete Challenge
+          </button>
+
+          <p class="privacy-note">
+            Your selection will be included in the staff spreadsheet export.
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- THANK YOU -->
+    <section id="thankYouScreen" class="screen">
+      <div class="thank-you-card">
+        <img src="icons/icon-192.png" class="thank-you-logo" alt="">
+        <p class="kicker">Challenge Complete</p>
+        <h2>Thank you for participating.</h2>
+        <p>Your drawing entry has been recorded.</p>
+        <div class="reset-countdown">
+          Ready for the next participant in
+          <strong id="countdownValue">8</strong>
+        </div>
+        <button id="nextParticipantButton" class="secondary-action" type="button">
+          Start Next Participant
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ADMIN -->
+    <div
+      id="adminModal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="adminTitle"
+      hidden
+    >
+      <div class="admin-card">
+        <button
+          id="closeAdminButton"
+          class="modal-close"
+          type="button"
+          aria-label="Close administration"
+        >
+          ×
+        </button>
+
+        <div id="adminLogin">
+          <img src="icons/icon-180.png" class="admin-logo" alt="">
+          <p class="kicker">Restricted Access</p>
+          <h2 id="adminTitle">Staff Administration</h2>
+
+          <label for="adminPin">Staff PIN</label>
+          <input
+            id="adminPin"
+            class="admin-pin"
+            type="password"
+            inputmode="numeric"
+            maxlength="8"
+          >
+
+          <p id="adminError" class="admin-error"></p>
+
+          <button id="adminLoginButton" class="primary-action" type="button">
+            Open Dashboard
+          </button>
+        </div>
+
+        <div id="adminDashboard" hidden>
+          <div class="admin-heading">
+            <div>
+              <p class="kicker">Event Dashboard</p>
+              <h2>Can You Reach First Responders Inside Your Building?</h2>
+            </div>
+            <img src="icons/icon-180.png" class="admin-corner-logo" alt="">
+          </div>
+
+          <div class="metric-grid">
+            <div class="metric-card">
+              <span>Participants</span>
+              <strong id="participantMetric">0</strong>
+            </div>
+
+            <div class="metric-card">
+              <span>Drawing Entries</span>
+              <strong id="entryMetric">0</strong>
+            </div>
+
+            <div class="metric-card">
+              <span>Successful Connections</span>
+              <strong id="successMetric">0</strong>
+            </div>
+
+            <div class="metric-card">
+              <span>Testing Interest</span>
+              <strong id="interestMetric">0</strong>
+            </div>
+          </div>
+
+          <div class="admin-section">
+            <div class="admin-section-heading">
+              <div>
+                <p class="section-label">Balanced Outcome Settings</p>
+                <h3>Successful connection percentage</h3>
+              </div>
+              <strong id="rateDisplay" class="admin-rate">30%</strong>
+            </div>
+
+            <input
+              id="rateSlider"
+              class="rate-slider"
+              type="range"
+              min="0"
+              max="50"
+              step="5"
+              value="30"
+            >
+
+            <div class="rate-scale">
+              <span>0%</span>
+              <span>10%</span>
+              <span>20%</span>
+              <span>30%</span>
+              <span>40%</span>
+              <span>50%</span>
+            </div>
+
+            <div class="balance-details">
+              <p id="balanceDescription">
+                At 30%, exactly 6 successful connections are distributed
+                randomly within each block of 20 participants.
+              </p>
+              <p id="blockProgress">Current block: 0 of 20 completed</p>
+            </div>
+
+            <button id="saveRateButton" class="primary-action" type="button">
+              Save Percentage
+            </button>
+
+            <p id="rateConfirmation" class="rate-confirmation"></p>
+          </div>
+
+          <div class="admin-button-grid">
+            <button id="exportButton" class="primary-action" type="button">
+              Export Excel-Compatible CSV
+            </button>
+
+            <button id="deleteDataButton" class="danger-action" type="button">
+              Delete All Event Data
+            </button>
+          </div>
+
+          <div class="admin-section">
+            <div class="admin-section-heading">
+              <div>
+                <p class="section-label">Recent Activity</p>
+                <h3>Participant records</h3>
+              </div>
+              <span id="actualRateLabel" class="actual-rate">
+                Actual connection rate: 0%
+              </span>
+            </div>
+
+            <div id="participantList" class="participant-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

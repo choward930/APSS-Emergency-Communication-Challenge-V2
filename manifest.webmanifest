@@ -1,0 +1,25 @@
+{
+  "name": "Can You Reach First Responders Inside Your Building?",
+  "short_name": "First Responders",
+  "description": "APSS emergency communications trade show challenge.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#07131d",
+  "theme_color": "#07131d",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
