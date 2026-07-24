@@ -316,7 +316,8 @@ h3 {
 
 .radio-stage {
   flex-direction: column;
-  gap: 30px;
+  gap: 60px;
+  padding-top: 40px;
 }
 
 .mission-header {
